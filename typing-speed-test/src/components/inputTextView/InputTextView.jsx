@@ -8,12 +8,12 @@ const InputTextView = ({ className, text, inputTextRef }) => {
     const letters = useMemo(() => text.split(''), [text]);
 
     return (
-        <div className={clsx(styles.inputText, className)}>
+        <p className={clsx(styles.inputText, className)}>
             {
                 letters.map((char, index) => {
                     return <span ref={(ref) => inputTextRef.current[index] = ref} key={index}>{char}</span>
                 })}
-        </div>
+        </p>
     );
 };
 

@@ -5,7 +5,7 @@ import RestartButton from '../ui/buttons/RestartButton';
 
 import styles from './typingComponent.module.scss';
 
-const TypingComponent = ({ state, text, inputTextRef, mistakes, changeState, onReset }) => {
+const TypingComponent = ({ state, text, inputTextRef, mistakes, onReset, onStart, onWaiting }) => {
 
     return (
         <div className={styles.typingComponent}>
@@ -16,11 +16,11 @@ const TypingComponent = ({ state, text, inputTextRef, mistakes, changeState, onR
                 }
                 {state === 'idle' &&
                     <>
-                        <div className={clsx(styles.input, styles.inputBlur, styles.noSelect)} onClick={() => changeState('waiting')}>
+                        <p className={clsx(styles.input, styles.inputBlur, styles.noSelect)} onClick={onWaiting}>
                             {text}
-                        </div>
+                        </p>
                         <div className={styles.modal}>
-                            <button className={styles.start} onClick={() => changeState('running')}>Start Typing Test</button>
+                            <button className={styles.start} onClick={onStart}>Start Typing Test</button>
                             <p className={styles.startComment}>Or click the text and start typing</p>
                         </div>
                     </>
@@ -29,7 +29,10 @@ const TypingComponent = ({ state, text, inputTextRef, mistakes, changeState, onR
             </div>
 
             {
-                <div className={clsx(styles.restartControl, state === 'idle' && styles.hidden)}>
+                <div
+                    className={clsx(styles.restartControl, state === 'idle' && styles.hidden)}
+                    role="group"
+                    aria-label="Test controls">
                     <span className={styles.divider} />
                     <RestartButton className={styles.restartButton} onClick={onReset}>Restart Test</RestartButton>
                 </div>

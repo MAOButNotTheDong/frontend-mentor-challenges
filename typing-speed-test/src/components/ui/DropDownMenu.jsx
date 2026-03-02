@@ -14,7 +14,7 @@ const DropDownMenu = ({ value, options, onClick, disabled }) => {
 
     return (
         <div className={styles.menuContainer}>
-            <button className={styles.dropDownTrigger} onClick={() => setOpen(value => !value)}>
+            <button type="button" className={styles.dropDownTrigger} onClick={() => setOpen(value => !value)} disabled={disabled} aria-expanded={open}>
                 {options.filter(opt => opt.value === value)[0].label}
                 <DownArrowIcon />
             </button>
@@ -25,12 +25,15 @@ const DropDownMenu = ({ value, options, onClick, disabled }) => {
                         const isActive = option.value === value;
                         return (
                             <li
-                                key={index}
-                                className={styles.select}
-                                onClick={() => onSelect(option.value)}
-                                disabled={disabled}>
-                                <span className={clsx(styles.icon, isActive && styles.iconActive)}></span>
-                                {option.label}
+                                key={index}>
+                                <button
+                                    type='button'
+                                    className={styles.select}
+                                    onClick={() => onSelect(option.value)}
+                                    aria-pressed={isActive}>
+                                    <span className={clsx(styles.icon, isActive && styles.iconActive)}></span>
+                                    {option.label}
+                                </button>
                             </li>
                         )
                     })}

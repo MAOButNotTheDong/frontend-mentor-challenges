@@ -2,6 +2,13 @@
     padding: 20px 100px;
 }
 
+.hiddenInput {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 20px 24px;

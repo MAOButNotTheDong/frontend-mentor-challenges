@@ -31,6 +31,7 @@ const App = () => {
     const [text, setText] = useState(getRandomText(difficulty));
 
     const currentIndex = useRef(0);
+    const hiddenInputRef = useRef(null);
     const inputTextRef = useRef([]);
     const words = useRef(new Set());
     const mistakes = useRef(new Set());
@@ -80,6 +81,30 @@ const App = () => {
         changeState('idle');
     }
 
+    const onStart = () => {
+        changeState('running');
+    }
+
+    const onWaiting = () => {
+        changeState('waiting')
+    }
+
+    const setLetterState = (state) => {
+        const el = inputTextRef.current[currentIndex.current];
+        if (!el) return;
+
+        el.classList.remove('correct', 'wrong', 'cursor');
+
+        if (state) el.classList.add(state);
+    };
+
+    const removeLetterStates = (...states) => {
+        const el = inputTextRef.current[currentIndex.current];
+        if (!el) return;
+
+        inputTextRef.current[currentIndex.current].classList.remove(...states);
+    }
+
     useEffect(() => {
         setText(getRandomText(difficulty));
     }, [difficulty])
@@ -118,10 +143,9 @@ const App = () => {
                     mistakes_.delete(index - 1);
                 }
 
-                inputTextRef.current[currentIndex.current].classList.remove('wrong', 'correct', 'cursor');
+                removeLetterStates('correct', 'wrong', 'cursor');
                 currentIndex.current = Math.max(index - 1, 0);
-                inputTextRef.current[currentIndex.current].classList.remove('wrong', 'correct');
-                inputTextRef.current[currentIndex.current].classList.add('cursor');
+                setLetterState('cursor')
                 return;
             }
 
@@ -132,11 +156,9 @@ const App = () => {
             if (text[index] !== e.key) {
                 mistakes_.add(index, e.key);
                 totalMistakes.current.add(index, e.key);
-                inputTextRef.current[currentIndex.current].classList.remove('correct', 'cursor');
-                inputTextRef.current[currentIndex.current].classList.add('wrong');
+                setLetterState('wrong')
             } else {
-                inputTextRef.current[currentIndex.current].classList.remove('wrong', 'cursor');
-                inputTextRef.current[currentIndex.current].classList.add('correct');
+                setLetterState('correct')
             }
 
             if (index + 1 >= text.length) {
@@ -145,9 +167,9 @@ const App = () => {
             }
 
             currentIndex.current++;
-            inputTextRef.current[currentIndex.current].classList.remove('wrong', 'correct');
-            inputTextRef.current[currentIndex.current].classList.add('cursor');
+            setLetterState('cursor');
         };
+
 
         if (state === 'running' && tickTimerRef.current === null) {
             if (mode !== 'passage' && Number.isInteger(mode)) {
@@ -157,6 +179,8 @@ const App = () => {
         }
 
         if (state === 'running' || state === 'waiting') {
+            setLetterState('cursor');
+            hiddenInputRef.current.focus();
             document.addEventListener('keydown', onKeyDown);
         }
 
@@ -176,23 +200,25 @@ const App = () => {
     return (
         <div className={styles.container}>
             <Header record={record} />
-            {state === 'show-result'
-                ? <Results type={resultType} wpm={wpm} accuracy={accuracy} totalLetters={text.length} mistakes={showingMistakes} onReset={onReset} />
-                : <>
-                    <Bar
-                        state={state}
-                        wpm={wpm}
-                        accuracy={accuracy}
-                        showingTime={showingTime}
-                        difficulty={difficulty}
-                        setDifficulty={setDifficulty}
-                        mode={mode}
-                        setMode={setMode} />
+            <main>
+                {state === 'show-result'
+                    ? <Results type={resultType} wpm={wpm} accuracy={accuracy} totalLetters={text.length} mistakes={showingMistakes} onReset={onReset} />
+                    : <>
+                        <Bar
+                            state={state}
+                            wpm={wpm}
+                            accuracy={accuracy}
+                            showingTime={showingTime}
+                            difficulty={difficulty}
+                            setDifficulty={setDifficulty}
+                            mode={mode}
+                            setMode={setMode} />
+                        <input ref={hiddenInputRef} aria-hidden="true" className={styles.hiddenInput} />
+                        <TypingComponent state={state} inputTextRef={inputTextRef} text={text} onStart={onStart} onWaiting={onWaiting} onReset={onReset} />
+                    </>
 
-                    <TypingComponent state={state} inputTextRef={inputTextRef} text={text} changeState={changeState} onReset={onReset} />
-                </>
-
-            }
+                }
+            </main>
         </div>
     );
 };
