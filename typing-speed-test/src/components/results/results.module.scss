@@ -6,23 +6,32 @@
 
 .star1 {
     position: absolute;
-    bottom: 100px;
+    height: 74px;
+    width: 74px;
+    bottom: 50px;
     right: 0;
 }
 
 .star2 {
     position: absolute;
+    height: 32px;
+    width: 32px;
     top: 100px;
 }
 
 .resultIcon {
+    height: 64px;
+    width: 64px;
     margin: 0 auto;
-    box-shadow: 0 0 0 10px rgba(76, 214, 122, 0.6), 0 0 0 20px rgba(76, 214, 122, 0.2);
     border: none;
     outline: none;
     border-radius: 50%;
-    background-color: var(--green-500);
-    color: var(--green-500);
+
+    &.completedIcon {
+        box-shadow: 0 0 0 10px rgba(76, 214, 122, 0.6), 0 0 0 20px rgba(76, 214, 122, 0.2);
+        background-color: var(--green-500);
+        color: var(--green-500);
+    }
 }
 
 .title {
@@ -70,7 +79,6 @@
 }
 
 .restartButton {
-    display: block;
     margin: 0 auto;
     font-size: 20px;
     margin-top: 60px;
@@ -79,7 +87,13 @@
 }
 
 .confetti {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    max-width: none;
     margin-top: 80px;
+    z-index: -1;
 }
 
 .grey {
@@ -92,4 +106,64 @@
 
 .mistakes {
     color: var(--red-500);
+}
+
+
+@media (max-width: 600px) {
+    .title {
+        margin-top: 20px;
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .statBar {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .statItem {
+        width: 100%;
+    }
+
+    .star1 {
+        position: absolute;
+        height: 32px;
+        width: 32px;
+        bottom: -100px;
+        right: 0;
+    }
+
+    .star2 {
+        position: absolute;
+        height: 16px;
+        width: 16px;
+        top: 25px;
+    }
+
+    .resultIcon {
+        height: 32px;
+        width: 32px;
+
+        &.completedIcon {
+            box-shadow: 0 0 0 5px rgba(76, 214, 122, 0.6), 0 0 0 10px rgba(76, 214, 122, 0.2);
+        }
+    }
+
+    .restartButton {
+        margin-top: 40px;
+    }
+
+    .confetti {
+        margin-top: -100px;
+        width: auto;
+    }
+
 }

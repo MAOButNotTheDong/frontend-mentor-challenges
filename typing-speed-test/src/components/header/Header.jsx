@@ -10,10 +10,12 @@ const Header = ({ record }) => {
 
     return (
         <header className={styles.header}>
-            <picture>
-                <source srcset={logoSmall} media="(max-width: 600px)" />
-                <img src={logoLarge} alt="logo" />
-            </picture>
+            <h1 className={styles.logo}>
+                <picture>
+                    <source srcset={logoSmall} media="(max-width: 600px)" />
+                    <img src={logoLarge} alt="Typing Speed Test" />
+                </picture>
+            </h1>
             <div className={styles.personalBest}>
                 <img src={bestIcon} alt="best" />
                 <span>

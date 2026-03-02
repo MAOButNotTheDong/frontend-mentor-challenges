@@ -89,6 +89,10 @@ const App = () => {
         changeState('waiting')
     }
 
+    const setFocus = () => {
+        hiddenInputRef.current.focus();
+    }
+
     const setLetterState = (state) => {
         const el = inputTextRef.current[currentIndex.current];
         if (!el) return;
@@ -128,8 +132,9 @@ const App = () => {
     }, [state, accuracy, wpm, changeState, record, setRecord])
 
     useEffect(() => {
-        const onKeyDown = (e) => {
-            if (e.key.length !== 1 && e.key !== 'Backspace') return;
+        const hiddenInput = hiddenInputRef.current;
+
+        const onInput = (e) => {
 
             if (state === 'waiting') {
                 changeState('running');
@@ -138,14 +143,17 @@ const App = () => {
             const index = currentIndex.current;
             const mistakes_ = mistakes.current;
 
-            if (e.key === 'Backspace') {
+            if (e.inputType === 'deleteContentBackward') {
                 if (mistakes_.has(index - 1)) {
                     mistakes_.delete(index - 1);
                 }
 
                 removeLetterStates('correct', 'wrong', 'cursor');
                 currentIndex.current = Math.max(index - 1, 0);
-                setLetterState('cursor')
+                setLetterState('cursor');
+                hiddenInput.value = ' ';
+                return;
+            } else if (e.inputType !== 'insertText') {
                 return;
             }
 
@@ -153,9 +161,9 @@ const App = () => {
                 words.current.add(index);
             }
 
-            if (text[index] !== e.key) {
-                mistakes_.add(index, e.key);
-                totalMistakes.current.add(index, e.key);
+            if (text[index] !== e.data) {
+                mistakes_.add(index, e.data);
+                totalMistakes.current.add(index, e.data);
                 setLetterState('wrong')
             } else {
                 setLetterState('correct')
@@ -168,8 +176,16 @@ const App = () => {
 
             currentIndex.current++;
             setLetterState('cursor');
+            hiddenInput.value = ' ';
         };
 
+        const onFocus = () => {
+            setLetterState('cursor');
+        }
+
+        const onBlur = () => {
+            removeLetterStates('correct', 'wrong', 'cursor');
+        }
 
         if (state === 'running' && tickTimerRef.current === null) {
             if (mode !== 'passage' && Number.isInteger(mode)) {
@@ -180,8 +196,11 @@ const App = () => {
 
         if (state === 'running' || state === 'waiting') {
             setLetterState('cursor');
-            hiddenInputRef.current.focus();
-            document.addEventListener('keydown', onKeyDown);
+            hiddenInput.focus();
+            hiddenInput.value = ' ';
+            hiddenInput.addEventListener('input', onInput);
+            hiddenInput.addEventListener('focus', onFocus);
+            hiddenInput.addEventListener('blur', onBlur);
         }
 
         if (state === 'reset') {
@@ -189,7 +208,11 @@ const App = () => {
         }
 
         return () => {
-            document.removeEventListener('keydown', onKeyDown);
+            if (hiddenInput) {
+                hiddenInput.removeEventListener('input', onInput);
+                hiddenInput.removeEventListener('focus', onFocus);
+                hiddenInput.removeEventListener('blur', onBlur);
+            }
             clearTimeout(timerOverRef.current);
             clearInterval(tickTimerRef.current);
             timerOverRef.current = null;
@@ -213,11 +236,11 @@ const App = () => {
                             setDifficulty={setDifficulty}
                             mode={mode}
                             setMode={setMode} />
-                        <input ref={hiddenInputRef} aria-hidden="true" className={styles.hiddenInput} />
-                        <TypingComponent state={state} inputTextRef={inputTextRef} text={text} onStart={onStart} onWaiting={onWaiting} onReset={onReset} />
+                        <input ref={hiddenInputRef} type='text' aria-hidden="true" className={styles.hiddenInput} />
+                        <TypingComponent state={state} inputTextRef={inputTextRef} text={text} onStart={onStart} onWaiting={onWaiting} onReset={onReset} setFocus={setFocus} />
                     </>
-
                 }
+                {/* <Results type='newPB' wpm={912} accuracy={86} totalLetters={text.length} mistakes={showingMistakes} /> */}
             </main>
         </div>
     );

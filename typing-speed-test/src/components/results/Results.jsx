@@ -48,7 +48,7 @@ const Results = ({ wpm, accuracy, totalLetters = 0, mistakes, type, onReset }) =
                 </>
                 : null
             }
-            <Icon className={styles.resultIcon} />
+            <Icon className={clsx(styles.resultIcon, Icon == IconCompleted && styles.completedIcon)} />
             <h1 className={styles.title}>{title}</h1>
             <h2 className={styles.subtitle}>{subtitle}</h2>
             <div className={styles.statBar}>

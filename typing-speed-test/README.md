@@ -29,8 +29,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [netlify](https://peppy-cactus-548918.netlify.app/)
 
 ## My process
 
@@ -40,7 +39,7 @@ Users should be able to:
 - SCSS Modules (CSS Modules + Sass)
 - CSS custom properties
 - Flexbox
-- Mobile-first workflow
+- Desktop-first workflow
 - [React 19](https://react.dev/) — UI library
 - [Vite](https://vite.dev/) — build tool
 - [clsx](https://github.com/lukeed/clsx) — conditional class names
