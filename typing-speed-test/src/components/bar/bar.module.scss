@@ -1,0 +1,93 @@
+.bar {
+    margin-top: 60px;
+}
+
+.barFlex {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.statBar {
+    display: flex;
+    gap: 20px;
+}
+
+.statItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.statValue {
+    color: var(--neutral-0);
+    font-weight: 900;
+}
+
+.accuracy {
+    color: var(--neutral-0);
+}
+
+.accuracyRed {
+    color: var(--red-500);
+}
+
+.accuracyGreen {
+    color: var(--green-500);
+}
+
+.time {
+    color: var(--yellow-400);
+}
+
+.settingsBar {
+    display: flex;
+    gap: 15px;
+}
+
+.settingsBarMobile {
+    display: none;
+    gap: 15px;
+}
+
+.verticalDivider {
+    width: 1px;
+    background-color: var(--neutral-500);
+}
+
+.divider {
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--neutral-500);
+}
+
+@media (max-width: 1280px) {
+    .barFlex {
+        gap: 10px;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    .statBar {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .statItem {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .settingsBar {
+        display: none;
+    }
+
+    .settingsBarMobile {
+        display: flex;
+    }
+}

@@ -1,0 +1,37 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.personalBest {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wpmScore {
+    color: var(--neutral-0);
+}
+
+.desktop {
+    display: inline;
+}
+
+.mobile {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .personalBest {
+        font-size: 14px;
+    }
+
+    .mobile {
+        display: inline;
+    }
+
+    .desktop {
+        display: none;
+    }
+}

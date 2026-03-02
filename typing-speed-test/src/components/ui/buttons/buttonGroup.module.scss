@@ -1,0 +1,41 @@
+.buttonGroup {
+    display: inline-flex;
+    align-items: center;
+}
+
+.label {
+    padding-right: 15px;
+}
+
+.buttonsContainer {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.button {
+    padding: 5px;
+    background-color: transparent;
+    outline: none;
+    border: 1px solid var(--neutral-500);
+    border-radius: 8px;
+    color: var(--neutral-0);
+    font-size: 16px;
+    cursor: pointer;
+
+    &.active,
+    &:not(:disabled):hover {
+        color: var(--blue-600);
+        border: 1px solid var(--blue-600);
+    }
+
+    &:focus-visible {
+        outline: 1px solid var(--blue-400);
+        outline-offset: 2px;
+    }
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+}

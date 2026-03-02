@@ -1,0 +1,17 @@
+.inputText {
+    color: var(--neutral-500);
+    text-decoration: none;
+
+    :global(.wrong) {
+        color: var(--red-500);
+        text-decoration: underline var(--red-500);
+    }
+
+    :global(.correct) {
+        color: var(--green-500);
+    }
+
+    :global(.cursor) {
+        background-color: var(--neutral-400);
+    }
+}

@@ -1,0 +1,19 @@
+.restartButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 auto;
+    color: var(--neutral-800);
+    font-weight: 700;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}

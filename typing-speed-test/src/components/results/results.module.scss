@@ -1,0 +1,95 @@
+.results {
+    position: relative;
+    margin-top: 60px;
+    color: var(--neutral-400);
+}
+
+.star1 {
+    position: absolute;
+    bottom: 100px;
+    right: 0;
+}
+
+.star2 {
+    position: absolute;
+    top: 100px;
+}
+
+.resultIcon {
+    margin: 0 auto;
+    box-shadow: 0 0 0 10px rgba(76, 214, 122, 0.6), 0 0 0 20px rgba(76, 214, 122, 0.2);
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    background-color: var(--green-500);
+    color: var(--green-500);
+}
+
+.title {
+    margin-top: 40px;
+    color: var(--neutral-0);
+    font-size: 40px;
+    text-align: center;
+}
+
+.subtitle {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.statBar {
+    margin-top: 60px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.statItem {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    align-items: start;
+    font-size: 24px;
+    padding: 10px 20px;
+    border: 1px solid var(--neutral-500);
+    width: 200px;
+    border-radius: 8px;
+}
+
+.statLabel {}
+
+.statValue {}
+
+.accuracyRed {
+    color: var(--red-500);
+}
+
+.accuracyGreen {
+    color: var(--green-500);
+}
+
+.restartButton {
+    display: block;
+    margin: 0 auto;
+    font-size: 20px;
+    margin-top: 60px;
+    height: 60px;
+    width: 240px;
+}
+
+.confetti {
+    margin-top: 80px;
+}
+
+.grey {
+    color: var(--neutral-500);
+}
+
+.correct {
+    color: var(--green-500);
+}
+
+.mistakes {
+    color: var(--red-500);
+}
