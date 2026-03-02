@@ -5,14 +5,14 @@ import RestartButton from '../ui/buttons/RestartButton';
 
 import styles from './typingComponent.module.scss';
 
-const TypingComponent = ({ state, text, inputTextRef, mistakes, onReset, onStart, onWaiting, setFocus }) => {
+const TypingComponent = ({ state, text, inputTextRef, onReset, onStart, onWaiting, setFocus }) => {
 
     return (
         <div className={styles.typingComponent}>
             <div className={styles.textContainer}>
 
                 {state !== 'idle' &&
-                    <InputTextView className={styles.input} text={text} inputTextRef={inputTextRef} mistakes={mistakes} setFocus={setFocus} />
+                    <InputTextView className={styles.input} text={text} inputTextRef={inputTextRef} setFocus={setFocus} />
                 }
                 {state === 'idle' &&
                     <>

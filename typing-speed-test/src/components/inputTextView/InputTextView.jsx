@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 
 import styles from './inputTextView.module.scss';
 
@@ -17,4 +17,4 @@ const InputTextView = ({ className, text, inputTextRef, setFocus }) => {
     );
 };
 
-export default InputTextView;
+export default memo(InputTextView);

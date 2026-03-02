@@ -2,11 +2,21 @@
     padding: 20px 100px;
 }
 
+// Invisible input that captures keyboard events on mobile.
+// Positioned at the current letter's coordinates so the soft keyboard
+// appears near the active line. opacity: 0 is avoided intentionally —
+// some mobile browsers refuse to open the keyboard for fully transparent inputs.
 .hiddenInput {
-    position: absolute;
-    opacity: 0;
-    width: 1px;
-    height: 1px;
+    position: fixed;
+    pointer-events: none;
+    // width: 1px;
+    // height: 1px;
+    font-size: 16px;
+    color: transparent;
+    background: transparent;
+    border: none;
+    outline: none;
+    caret-color: transparent;
 }
 
 @media (max-width: 768px) {

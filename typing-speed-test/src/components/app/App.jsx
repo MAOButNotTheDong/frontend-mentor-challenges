@@ -19,6 +19,8 @@ const getRandomText = (difficulty) => {
 const App = () => {
     const [state, setState] = useState('idle');
     const changeState = useCallback((newState) => setState(prev => prev === newState ? prev : newState), []);
+    const [typedText, setTypedText] = useState('');
+    const typedTextRef = useRef('');
 
     const { difficulty, setDifficulty, mode, setMode, record, setRecord } = useLocalStorage();
 
@@ -78,6 +80,8 @@ const App = () => {
         setShowingTime('00:00');
         setAccuracy(100);
         setText(getRandomText(difficulty));
+        typedTextRef.current = '';
+        setTypedText('');
         changeState('idle');
     }
 
@@ -87,10 +91,6 @@ const App = () => {
 
     const onWaiting = () => {
         changeState('waiting')
-    }
-
-    const setFocus = () => {
-        hiddenInputRef.current.focus();
     }
 
     const setLetterState = (state) => {
@@ -107,6 +107,89 @@ const App = () => {
         if (!el) return;
 
         inputTextRef.current[currentIndex.current].classList.remove(...states);
+    }
+
+    const onChange = (e) => {
+        let input = e.target.value;
+
+        if (state === 'waiting') {
+            changeState('running');
+        }
+
+        if (input.length - typedTextRef.current.length > 1 || typedTextRef.current.length - input.length > 1) {
+            e.target.value = typedTextRef.current;
+            return;
+        }
+
+
+        const index = currentIndex.current;
+        const mistakes_ = mistakes.current;
+
+        if (typedTextRef.current.length - input.length == 1) {
+            removeLetterStates('correct', 'wrong', 'cursor');
+
+            currentIndex.current = index - 1;
+
+        } else {
+
+            if (index > 0 && /\p{L}/u.test(text[index - 1]) && !/\p{L}/u.test(text[index])) {
+                words.current.add(index);
+            }
+
+            const char = input[index];
+
+            if (text[index] !== char) {
+                mistakes_.add(index, char);
+                totalMistakes.current.add(index, char);
+                setLetterState('wrong')
+            } else {
+                setLetterState('correct')
+            }
+
+            if (index + 1 >= text.length) {
+                changeState('finished');
+                return;
+            }
+
+            currentIndex.current++;
+        }
+
+        setLetterState('cursor');
+        typedTextRef.current = input;
+        setTypedText(input);
+        if (inputTextRef.current[currentIndex.current]?.getBoundingClientRect().top !== hiddenInputRef.current?.getBoundingClientRect().top) {
+            updateInputPosition();
+        }
+
+    };
+
+    const updateInputPosition = useCallback(() => {
+        const span = inputTextRef.current[currentIndex.current];
+        if (!span || !hiddenInputRef.current) return;
+
+        const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+        const { top, bottom } = span.getBoundingClientRect();
+        const spanHeight = bottom - top;
+        if (bottom > viewportHeight - spanHeight) {
+            window.scrollBy({ top: Math.min(bottom - viewportHeight + 5 * spanHeight, viewportHeight), behavior: 'instant' });
+        }
+
+        const rect = span.getBoundingClientRect();
+        hiddenInputRef.current.style.top = `${rect.top}px`;
+        hiddenInputRef.current.style.left = `${rect.left}px`;
+    }, []);
+
+    const setFocus = useCallback(() => {
+        updateInputPosition();
+        hiddenInputRef.current.focus();
+    }, [updateInputPosition]);
+
+    const onFocus = () => {
+        setLetterState('cursor');
+    }
+
+    const onBlur = () => {
+        removeLetterStates('correct', 'wrong', 'cursor');
     }
 
     useEffect(() => {
@@ -132,61 +215,6 @@ const App = () => {
     }, [state, accuracy, wpm, changeState, record, setRecord])
 
     useEffect(() => {
-        const hiddenInput = hiddenInputRef.current;
-
-        const onInput = (e) => {
-
-            if (state === 'waiting') {
-                changeState('running');
-            }
-
-            const index = currentIndex.current;
-            const mistakes_ = mistakes.current;
-
-            if (e.inputType === 'deleteContentBackward') {
-                if (mistakes_.has(index - 1)) {
-                    mistakes_.delete(index - 1);
-                }
-
-                removeLetterStates('correct', 'wrong', 'cursor');
-                currentIndex.current = Math.max(index - 1, 0);
-                setLetterState('cursor');
-                hiddenInput.value = ' ';
-                return;
-            } else if (e.inputType !== 'insertText') {
-                return;
-            }
-
-            if (index > 0 && /\p{L}/u.test(text[index - 1]) && !/\p{L}/u.test(text[index])) {
-                words.current.add(index);
-            }
-
-            if (text[index] !== e.data) {
-                mistakes_.add(index, e.data);
-                totalMistakes.current.add(index, e.data);
-                setLetterState('wrong')
-            } else {
-                setLetterState('correct')
-            }
-
-            if (index + 1 >= text.length) {
-                changeState('finished');
-                return;
-            }
-
-            currentIndex.current++;
-            setLetterState('cursor');
-            hiddenInput.value = ' ';
-        };
-
-        const onFocus = () => {
-            setLetterState('cursor');
-        }
-
-        const onBlur = () => {
-            removeLetterStates('correct', 'wrong', 'cursor');
-        }
-
         if (state === 'running' && tickTimerRef.current === null) {
             if (mode !== 'passage' && Number.isInteger(mode)) {
                 timerOverRef.current = setTimeout(() => changeState('finished'), mode * 1000);
@@ -196,11 +224,7 @@ const App = () => {
 
         if (state === 'running' || state === 'waiting') {
             setLetterState('cursor');
-            hiddenInput.focus();
-            hiddenInput.value = ' ';
-            hiddenInput.addEventListener('input', onInput);
-            hiddenInput.addEventListener('focus', onFocus);
-            hiddenInput.addEventListener('blur', onBlur);
+            setFocus();
         }
 
         if (state === 'reset') {
@@ -208,17 +232,12 @@ const App = () => {
         }
 
         return () => {
-            if (hiddenInput) {
-                hiddenInput.removeEventListener('input', onInput);
-                hiddenInput.removeEventListener('focus', onFocus);
-                hiddenInput.removeEventListener('blur', onBlur);
-            }
             clearTimeout(timerOverRef.current);
             clearInterval(tickTimerRef.current);
             timerOverRef.current = null;
             tickTimerRef.current = null;
         };
-    }, [state, changeState, updateStatistics, mode, text]);
+    }, [state, changeState, updateStatistics, mode, text, setFocus]);
 
     return (
         <div className={styles.container}>
@@ -236,7 +255,21 @@ const App = () => {
                             setDifficulty={setDifficulty}
                             mode={mode}
                             setMode={setMode} />
-                        <input ref={hiddenInputRef} type='text' aria-hidden="true" className={styles.hiddenInput} />
+                        <input
+                            ref={hiddenInputRef}
+                            className={styles.hiddenInput}
+                            type="text"
+                            inputMode="text"
+                            autoFocus
+                            autoComplete="off"
+                            autoCorrect="off"
+                            autoCapitalize="none"
+                            value={typedText}
+                            onChange={onChange}
+                            onFocus={onFocus}
+                            onBlur={onBlur}
+                            onPaste={(e) => e.preventDefault()}
+                            onDrop={(e) => e.preventDefault()} />
                         <TypingComponent state={state} inputTextRef={inputTextRef} text={text} onStart={onStart} onWaiting={onWaiting} onReset={onReset} setFocus={setFocus} />
                     </>
                 }

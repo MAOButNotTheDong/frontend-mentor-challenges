@@ -10,6 +10,10 @@
 .input {
     margin-top: 40px;
     font-size: 36px;
+
+    @media (max-width: 600px) {
+        font-size: 22px;
+    }
 }
 
 .inputBlur {
