@@ -1,0 +1,3 @@
+[submodule "weather-app"]
+	path = weather-app
+	url = https://github.com/MAOButNotTheDong/weather-app
