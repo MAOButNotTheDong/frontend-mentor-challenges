@@ -11,13 +11,13 @@
         border-radius: 10px 10px 10px 4px;
         background: var(--purple-50);
         color: var(--purple-600);
-        align-self: self-start;
+        align-self: flex-start;
     }
 
     &--sent {
         border-radius: 10px 10px 4px 10px;
         background: var(--white);
         color: var(--gray-500);
-        align-self: self-end;
+        align-self: flex-end;
     }
 }
