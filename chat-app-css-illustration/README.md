@@ -20,7 +20,7 @@ Your users should be able to:
 ### Links
 
 - Solution URL: [Github](https://github.com/MAOButNotTheDong/frontend-mentor-challenges/tree/main/chat-app-css-illustration)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [netlify](https://gilded-pasca-638d61.netlify.app/)
 
 ## Author
 
