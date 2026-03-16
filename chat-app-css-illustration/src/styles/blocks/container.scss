@@ -1,0 +1,23 @@
+.container {
+    padding: 64px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 64px;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 64px 162px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .container {
+        padding: 148px 314px;
+        flex-direction: row;
+        gap: 120px;
+        justify-content: center;
+        min-height: 100vh;
+    }
+}

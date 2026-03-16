@@ -1,0 +1,59 @@
+@use "../token.scss" as *;
+
+.input-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 8px 8px 16px;
+    background-color: var(--white);
+    color: var(--gray-300);
+    border-radius: 17px;
+    min-height: 34px;
+    width: 213px;
+
+    &__input {
+        flex: 1;
+        font-size: 8px;
+        text-align: start;
+        outline: none;
+        border: none;
+
+        &::placeholder {
+            color: var(--gray-300);
+        }
+    }
+
+    &__btn {
+        width: 24px;
+        height: 24px;
+        background-color: var(--purple-950);
+        border-radius: 50%;
+        outline: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
+        gap: 0;
+
+        span {
+            position: relative;
+            display: block;
+            height: 8px;
+            width: 2.5px;
+            background-color: var(--white);
+            border-radius: 1px;
+        }
+
+        & span:first-child {
+            transform: rotate(-45deg);
+            top: 2px;
+        }
+
+        & span:last-child {
+            transform: rotate(45deg);
+            top: -2px;
+        }
+    }
+}

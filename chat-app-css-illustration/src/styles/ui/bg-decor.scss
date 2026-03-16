@@ -1,0 +1,50 @@
+@use "../token.scss" as *;
+
+.bg-decor {
+    display: block;
+    position: absolute;
+    height: 1018px;
+    width: 510px;
+    background: var(--gradient);
+    border-radius: 255px;
+    z-index: -10;
+
+    &--top {
+        left: -50%;
+        top: -50%;
+    }
+
+    &--bottom {
+        right: -323px;
+        top: 427px;
+        opacity: 3%;
+    }
+}
+
+@media (min-width: 768px) {
+    .bg-decor {
+        &--top {
+            top: -536px;
+            left: -126px;
+        }
+
+        &--bottom {
+            top: 398px;
+            right: -126px;
+        }
+    }
+}
+
+@media (min-width: 1440px) {
+    .bg-decor {
+        &--top {
+            top: -318px;
+            left: -90px;
+        }
+
+        &--bottom {
+            top: 119px;
+            right: -185px;
+        }
+    }
+}

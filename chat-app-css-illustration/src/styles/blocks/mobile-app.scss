@@ -1,0 +1,8 @@
+@use "../token.scss" as *;
+.mobile-app {
+    border-radius: 20px;
+    border: 1px solid hsl(271 36% 24% / 0.05);
+    background-color: var(--gray-100);
+    width: 228px;
+    min-height: 483px;
+}

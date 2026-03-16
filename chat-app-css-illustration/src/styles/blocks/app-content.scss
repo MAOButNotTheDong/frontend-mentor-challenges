@@ -1,0 +1,13 @@
+.app-content {
+    padding: 11px 8px;
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    line-height: 1.2;
+
+    &__message-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+}

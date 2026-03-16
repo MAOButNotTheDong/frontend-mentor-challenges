@@ -1,0 +1,23 @@
+@use "../token.scss" as *;
+.phone {
+    position: relative;
+    width: 247px;
+    min-height: 505px;
+    border-radius: 30px;
+    padding: 10px;
+    box-shadow: 0 30px 60px -10px hsl(271 36% 24% / 0.25);
+    background-color: var(--white);
+
+    &__notch {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        translate: -50%;
+        width: 129px;
+        height: 29px;
+        margin: auto;
+        background-color: var(--white);
+        border-radius: 0 0 14px 14px;
+        z-index: 1000;
+    }
+}

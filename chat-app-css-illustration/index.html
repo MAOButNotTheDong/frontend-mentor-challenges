@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chat-app-css-illustration</title>
+    </head>
+    <body>
+        <div id="app">
+            <span class="bg-decor bg-decor--top"></span>
+            <span class="bg-decor bg-decor--bottom"></span>
+
+            <div class="container">
+                <div class="phone">
+                    <span class="phone__notch"></span>
+                    <div class="mobile-app">
+                        <div class="app-header">
+                            <div class="app-header__back-arrow">
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <img
+                                src="/src/assets/images/avatar.jpg"
+                                alt="user-avatar"
+                                class="app-header__avatar"
+                            />
+                            <div class="app-header__info">
+                                <p class="app-header__name">Samuel Green</p>
+                                <p class="app-header__status">
+                                    Available to Walk
+                                </p>
+                            </div>
+                            <div class="app-header__menu">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="app-content">
+                            <div class="app-content__message-group">
+                                <p class="message message--received">
+                                    That sounds great. I’d be happy with that.
+                                </p>
+                                <p class="message message--received">
+                                    Could you send over some pictures of your
+                                    dog, please?
+                                </p>
+                            </div>
+
+                            <div class="app-content__message-group">
+                                <div class="photo-message">
+                                    <div class="photo-message__gallery">
+                                        <img
+                                            src="/src/assets/images/dog-image-1.jpg"
+                                            alt="dog-1"
+                                            class="photo-message__img"
+                                        />
+                                        <img
+                                            src="/src/assets/images/dog-image-2.jpg"
+                                            alt="dog-2"
+                                            class="photo-message__img"
+                                        />
+                                        <img
+                                            src="/src/assets/images/dog-image-3.jpg"
+                                            alt="dog-3"
+                                            class="photo-message__img"
+                                        />
+                                    </div>
+                                    <p
+                                        class="photo-message__text message message--sent"
+                                    >
+                                        That sounds great. I’d be happy with
+                                        that.
+                                    </p>
+                                </div>
+                                <p class="message message--sent">
+                                    Can you make it?
+                                </p>
+                            </div>
+
+                            <div class="app-content__message-group">
+                                <p class="message message--received">
+                                    She looks so happy! The time we discussed
+                                    works. How long shall I take her out for?
+                                </p>
+
+                                <div class="price-message">
+                                    <span class="price-message__icon"></span>
+                                    <p class="price-message__offer">
+                                        30 minute walk
+                                    </p>
+                                    <span class="price-message__price"
+                                        >$29</span
+                                    >
+                                </div>
+
+                                <div class="price-message">
+                                    <span class="price-message__icon"></span>
+                                    <p class="price-message__offer">
+                                        1 hour walk
+                                    </p>
+                                    <span class="price-message__price"
+                                        >$49</span
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="input-box">
+                                <input
+                                    type="text"
+                                    placeholder="Type a message…"
+                                    class="input-box__input"
+                                />
+                                <button type="button" class="input-box__btn">
+                                    <span></span>
+                                    <span></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="promo">
+                    <h1 class="promo__title">Simple booking</h1>
+                    <p class="promo__text">
+                        Stay in touch with our dog walkers through the chat
+                        interface. This makes it easy to discuss arrangements
+                        and make bookings. Once the walk has been completed you
+                        can rate your walker and book again all through the
+                        chat.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <script type="module" src="./src/main.js"></script>
+    </body>
+</html>

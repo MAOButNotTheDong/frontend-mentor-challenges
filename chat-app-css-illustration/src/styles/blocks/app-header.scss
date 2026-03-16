@@ -1,0 +1,76 @@
+@use "../token.scss" as *;
+.app-header {
+    padding: 26px 16px 16px 16px;
+    border-radius: 20px 20px 6px 6px;
+    background: var(--gradient);
+    max-height: 66px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+
+    &__back-arrow {
+        position: relative;
+
+        & span {
+            position: relative;
+            display: block;
+            width: 2px;
+            height: 6px;
+            border-radius: 1px;
+            background-color: var(--white);
+        }
+
+        & span:first-child {
+            top: 1px;
+            transform: rotate(30deg);
+        }
+
+        & span:last-child {
+            top: -1px;
+            transform: rotate(-30deg);
+        }
+    }
+
+    &__avatar {
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        border: 1px solid var(--white);
+        object-fit: contain;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 0;
+        text-align: start;
+    }
+
+    &__name {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--white);
+    }
+
+    &__status {
+        font-size: 8px;
+        font-weight: 400;
+        color: var(--purple-300);
+    }
+
+    &__menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1px;
+
+        & span {
+            height: 2px;
+            width: 2px;
+            border-radius: 50%;
+            background-color: var(--white);
+        }
+    }
+}

@@ -1,0 +1,25 @@
+@use "../token.scss" as *;
+
+.promo {
+    text-align: center;
+
+    &__title {
+        font-weight: 500;
+        font-size: 40px;
+        color: var(--purple-950);
+    }
+
+    &__text {
+        margin-top: 24px;
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--gray-500);
+    }
+}
+
+@media (min-width: 1440px) {
+    .promo {
+        width: 445px;
+        text-align: start;
+    }
+}
